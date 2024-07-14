@@ -1,5 +1,5 @@
-# Getting Started with Create React App
-
+# Movies Portal
+This project is the demonstration of fetching and showing the movies data from an API usig JavaScript and ReactJS concepts.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
