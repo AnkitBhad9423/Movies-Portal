@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { fetchMovies } from "../api/fetchMovies";
+import ErrorAlert from "./errorAlert";
+import MovieDetail from "./movieDetail";
 
 function MoviesPortal() {
   const [searchInputText, setSearchInputText] = useState("");
@@ -9,7 +11,9 @@ function MoviesPortal() {
 
   const onSearchTextedEnter = (e) => {
     e.preventDefault();
-    fetchMovies(searchInputText, setMovies, setError);
+    fetchMovies(searchInputText, setMovies, setError, () =>
+      setEnteredSearchText(searchInputText)
+    );
     setEnteredSearchText(searchInputText);
   };
   return (
@@ -26,9 +30,19 @@ function MoviesPortal() {
           </form>
         </div>
       </div>
-      {enteredSearchText}
-      {JSON.stringify(movies)}
-      {error}
+      <br />
+      {error && <ErrorAlert error={error} searchTerm={enteredSearchText} />}
+      {movies.length > 0 && (
+        <p
+          className="text-light
+      "
+        >
+          Showing {movies.length} Movies for '{enteredSearchText}'
+        </p>
+      )}
+      {movies.map((movie) => (
+        <MovieDetail key={movie.imdbID} movie={movie} />
+      ))}
     </>
   );
 }
